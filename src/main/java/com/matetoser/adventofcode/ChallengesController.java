@@ -67,4 +67,22 @@ public class ChallengesController {
 		return counter;
 	}
 
+	@PostMapping("/day-two/part-two")
+	public Integer dayTwoPartTwo(@RequestBody String input) {
+		List<String> entries = Arrays.stream(input.split("\n")).collect(Collectors.toList());
+		int counter = 0;
+		for (String entry : entries) {
+			List<String> parts = Arrays.stream(entry.split(" ")).collect(Collectors.toList());
+			String[] length = parts.get(0).split("-");
+			String character = parts.get(1).replace(":", "");
+			String password = parts.get(2);
+			boolean first = character.charAt(0) == password.charAt(Integer.parseInt(length[0]) - 1);
+			boolean second = character.charAt(0) == password.charAt(Integer.parseInt(length[1]) - 1);
+			if (first ^ second) {
+				counter++;
+			}
+		}
+		return counter;
+	}
+
 }
